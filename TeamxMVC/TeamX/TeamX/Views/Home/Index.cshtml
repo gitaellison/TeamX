@@ -2,7 +2,8 @@
     ViewBag.Title = "TeamX";
     ViewBag.Description = "Home Page";
 }
-
+<html>
+<body>
 <div class="row">
     <div class="col-xs-12 col-md-5">
         <div class="box box-default">
@@ -10,17 +11,17 @@
                 <h3 class="box-title">Image Here</h3>
             </div>
             <div class="box-body">
-            <img src="https://www.geico.com/public/images/peeping_gecko.gif" />
+				<img id="image" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\peeping_gecko.gif" />
             </div>
         </div>
     </div>
     <div class="col-xs-12 col-md-7">
         <div class="box box-default">
             <div class="box-header with-border">
-                <h3 class="box-title">Bootstrap-Select</h3>
+                <h3 class="box-title">JSON Response</h3>
             </div>
             <div class="box-body">
-                JSON RESPONSE HERE { :) }
+                <p id="response"/>
             </div>
         </div>
     </div>
@@ -29,11 +30,156 @@
     <div class="col-xs-12 col-md-6">
         <div class="box box-danger">
             <div class="box-header">
-                <h3 class="box-title">Pic Toggle</h3>
+                <h3 class="box-title">Selection</h3>
             </div>
             <div class="box-body">
-                PIC TOGGLE
-            </div>
+				<input type="image" class="button" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\3-10-08-uae-fog-1.jpg" id="gimme1" />
+				<input type="image" class="button" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\Car-Accident-Statistics.jpg" id="gimme2" />
+				<input type="image" class="button" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\deer-accident.jpg" id="gimme3" />
+				<input type="image" class="button" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\roydeer11.jpg" id="gimme4" />
+				<input type="image" class="button" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\snow-accidents.jpg" id="gimme5" />
+				<input type="image" class="button" src="C:\Users\Gita\source\repos\TeamX\TeamxMVC\TeamX\TeamX\Content\img\img_1449.jpg" id="gimme6" />
+			</div>
         </div>
     </div>
 </div>
+
+<style type="text/css">
+	.button {
+		display: inline-block;
+		height: 134px;
+		padding: 0;
+		margin: 0;
+		vertical-align: top;
+		width: 104px;
+	}
+
+	.close-image img {
+		display: block;
+		height: 130px;
+		width: 100px;
+	}
+</style>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+
+	var img = $('#gimme1').attr('src');
+	$("#gimme1").on('click', function () {
+		$.ajax({
+			url: '/Home/CallVisionApi/',
+			type: 'POST',
+			dataType: 'text',
+			data: { imgsrc: img},
+			success: function (data) {},
+			error: function (data) { }
+		}).done(function (data) {
+			$('#response').append(data)})	
+	})
+
+},	$("#gimme1").on('click', function () {
+	$("#image").attr("src", $(this).attr("src"))
+}));
+
+$(document).ready(function () {
+
+	var img = $('#gimme2').attr('src');
+	$("#gimme2").on('click', function () {
+		$.ajax({
+			url: '/Home/CallVisionApi/',
+			type: 'POST',
+			dataType: 'text',
+			data: { imgsrc: img },
+			success: function (data) { },
+			error: function (data) { }
+		}).done(function (data) {
+			$('#response').append(data)
+		})
+	})
+
+}, $("#gimme2").on('click', function () {
+	$("#image").attr("src", $(this).attr("src"))
+}));
+
+$(document).ready(function () {
+
+	var img = $('#gimme3').attr('src');
+	$("#gimme3").on('click', function () {
+		$.ajax({
+			url: '/Home/CallVisionApi/',
+			type: 'POST',
+			dataType: 'text',
+			data: { imgsrc: img },
+			success: function (data) { },
+			error: function (data) { }
+		}).done(function (data) {
+			$('#response').append(data)
+		})
+	})
+
+}, $("#gimme3").on('click', function () {
+	$("#image").attr("src", $(this).attr("src"))
+}));
+$(document).ready(function () {
+
+	var img = $('#gimme4').attr('src');
+	$("#gimme4").on('click', function () {
+		$.ajax({
+			url: '/Home/CallVisionApi/',
+			type: 'POST',
+			dataType: 'text',
+			data: { imgsrc: img },
+			success: function (data) { },
+			error: function (data) { }
+		}).done(function (data) {
+			$('#response').append(data)
+		})
+	})
+
+}, $("#gimme4").on('click', function () {
+	$("#image").attr("src", $(this).attr("src"))
+}));
+$(document).ready(function () {
+
+	var img = $('#gimme5').attr('src');
+	$("#gimme5").on('click', function () {
+		$.ajax({
+			url: '/Home/CallVisionApi/',
+			type: 'POST',
+			dataType: 'text',
+			data: { imgsrc: img },
+			success: function (data) { },
+			error: function (data) { }
+		}).done(function (data) {
+			$('#response').append(data)
+		})
+	})
+
+}, $("#gimme5").on('click', function () {
+	$("#image").attr("src", $(this).attr("src"))
+}));
+
+$(document).ready(function () {
+
+	var img = $('#gimme6').attr('src');
+	$("#gimme6").on('click', function () {
+		$.ajax({
+			url: '/Home/CallVisionApi/',
+			type: 'POST',
+			dataType: 'text',
+			data: { imgsrc: img},
+			success: function (data) {},
+			error: function (data) { }
+		}).done(function (data) {
+			$('#response').append(data)})	
+	})
+
+},	$("#gimme6").on('click', function () {
+	$("#image").attr("src", $(this).attr("src"))
+}));
+
+
+</script>
+</body>
+</html>

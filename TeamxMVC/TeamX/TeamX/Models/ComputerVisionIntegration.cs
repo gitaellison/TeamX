@@ -5,41 +5,39 @@ using System.Threading.Tasks;
 
 public static class ComputerVisionIntegration
 {
+    const string subscriptionKey = "e23b14f4b0e34742bf3ddb4b41efae7e";
+    const string uriBase = "https://eastus.api.cognitive.microsoft.com/vision/v1.0/analyze";
+
     /// <summary>
     /// Gets a thumbnail image from the specified image file by using the Computer Vision REST API.
     /// </summary>
     /// <param name="imageFilePath">The image file to use to create the thumbnail image.</param>
-    static async Task<string> MakeAnalysisRequest(string imageFilePath)
+    public static async Task<string> MakeAnalysisRequest(string imageFilePath)
     {
-        var subscriptionKey = "3dc8896da7c64d238d3dc3402aaeb697";
         HttpClient client = new HttpClient();
 
         // Request headers.
         client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
-        // Request parameters. Change "landmarks" to "celebrities" here and in uriBase to use the Celebrities model.
-        string requestParameters = "model=landmarks";
+        string requestParameters = "visualFeatures=Categories,Description,Color&language=en";
 
         // Assemble the URI for the REST API Call.
-        string uri = "https://eastus.api.cognitive.microsoft.com/vision/v1.0" + "?" + requestParameters;
+        string uri = uriBase + "?" + requestParameters;
 
         HttpResponseMessage response;
-
+        string responseContent;
         // Request body. Posts a locally stored JPEG image.
-        byte[] byteData = GetImageAsByteArray("\\Content\\img\\car accident.jpg");
+        byte[] byteData = GetImageAsByteArray(imageFilePath);
 
         using (ByteArrayContent content = new ByteArrayContent(byteData))
         {
-            // This example uses content type "application/octet-stream".
-            // The other content types you can use are "application/json" and "multipart/form-data".
             content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
-            // Execute the REST API call.
-            response = await client.PostAsync(uri, content);
+            response = client.PostAsync(uri, content).Result;
 
-            // Get the JSON response.
-            return await response.Content.ReadAsStringAsync();
+            responseContent = response.Content.ReadAsStringAsync().Result;
         }
+        return responseContent;
     }
 
     /// <summary>

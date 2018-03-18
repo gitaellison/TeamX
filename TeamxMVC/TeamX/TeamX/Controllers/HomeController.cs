@@ -13,5 +13,12 @@ namespace TeamX.Controllers
         {
             return View("Index");
         }
+
+        [HttpPost]
+        public string CallVisionApi(string imgsrc)
+        {
+            return ComputerVisionIntegration.MakeAnalysisRequest(imgsrc).Result;
+        }
+
     }
 }
