@@ -17,7 +17,7 @@ namespace TeamX.Controllers
         [HttpPost]
         public string CallVisionApi(string imgsrc)
         {
-            return ComputerVisionIntegration.MakeAnalysisRequest(imgsrc).Result;
+            return ComputerVisionIntegration.MakeAnalysisRequest(imgsrc);
         }
 
     }

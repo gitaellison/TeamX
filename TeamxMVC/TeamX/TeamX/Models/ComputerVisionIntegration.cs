@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ public static class ComputerVisionIntegration
     /// Gets a thumbnail image from the specified image file by using the Computer Vision REST API.
     /// </summary>
     /// <param name="imageFilePath">The image file to use to create the thumbnail image.</param>
-    public static async Task<string> MakeAnalysisRequest(string imageFilePath)
+    public static string MakeAnalysisRequest(string imageFilePath)
     {
         HttpClient client = new HttpClient();
 
@@ -37,7 +38,7 @@ public static class ComputerVisionIntegration
 
             responseContent = response.Content.ReadAsStringAsync().Result;
         }
-        return responseContent;
+        return formatJsonResponse(responseContent);
     }
 
     /// <summary>
@@ -50,5 +51,19 @@ public static class ComputerVisionIntegration
         FileStream fileStream = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
         BinaryReader binaryReader = new BinaryReader(fileStream);
         return binaryReader.ReadBytes((int)fileStream.Length);
+    }
+
+    static string formatJsonResponse(string responseContent) {
+        var result = JsonConvert.DeserializeObject<Root>(responseContent);
+        string a = "Tags: ";
+
+        foreach(var tag in result.description.Tag)
+        {
+            a += tag + ", ";
+        }
+
+        string b = "Caption: " + result.description.Caption[0].conf + " " + result.description.Caption[0].text;
+        responseContent = a + b;
+        return responseContent;
     }
 }
