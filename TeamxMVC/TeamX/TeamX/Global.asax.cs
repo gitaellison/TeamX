@@ -16,6 +16,7 @@ namespace TeamX
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            QueueConnector.Initialize();
         }
 
         protected void Application_Error(object sender, EventArgs e)

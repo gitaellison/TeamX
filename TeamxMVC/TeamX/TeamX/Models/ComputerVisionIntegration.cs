@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.ServiceBus.Messaging;
+using Newtonsoft.Json;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -37,6 +38,7 @@ public static class ComputerVisionIntegration
             response = client.PostAsync(uri, content).Result;
 
             responseContent = response.Content.ReadAsStringAsync().Result;
+            PublishToAsb(responseContent);
         }
         return formatJsonResponse(responseContent);
     }
@@ -65,5 +67,11 @@ public static class ComputerVisionIntegration
         string b = "Caption: " + result.description.Caption[0].conf + " " + result.description.Caption[0].text;
         responseContent = a + b;
         return responseContent;
+    }
+
+    static void PublishToAsb(string json)
+    {
+        var message = new BrokeredMessage(json);
+        QueueConnector.ClaimsClient.Send(message);
     }
 }
